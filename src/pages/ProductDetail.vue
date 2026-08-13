@@ -2,10 +2,34 @@
 import { useRoute } from "vue-router";
 import { products } from "../api/product";
 
+import { onMounted, ref } from "vue";
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+};
+
 const route = useRoute();
 const productId = Number(route.params.id);
 
-const product = products.find((pro) => pro.id === productId);
+const product = ref<Product | null>(null);
+
+async function getProductById() {
+  try{
+    const res = await fetch(`http://localhost:3000/products/${productId}`);
+    const data = await res.json();
+    product.value = data;
+  }catch(error){
+    console.log(error);
+  }
+}
+
+onMounted(()=>{
+  getProductById();
+})
+
 </script>
 
 <template>
