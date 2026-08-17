@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useCounterStore } from '../pinia/counter';
 
+const counter = useCounterStore()
 </script>
 
 <template>
@@ -9,7 +11,7 @@
 
     <!-- Logo -->
     <h1 class="text-xl font-bold text-blue-600">
-      MyApp
+      MyApp {{ counter.count }}
     </h1>
 
     <!-- Menu -->

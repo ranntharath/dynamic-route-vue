@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import ProductCard from "../components/ProductCard.vue";
 import { ref } from "vue";
+import { useCounterStore } from "../pinia/counter.ts";
 
 type Product = {
   id: number;
@@ -26,11 +27,13 @@ async function getAllProducts() {
 onMounted(()=>{
   getAllProducts();
 })
+//
+const {count} = useCounterStore()
 
 </script>
 
 <template>
-  <h1 class="text-2xl font-bold py-10">Product Page</h1>
+  <h1 class="text-2xl font-bold py-10">Product Page {{ count }}</h1>
 
   <div
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center"

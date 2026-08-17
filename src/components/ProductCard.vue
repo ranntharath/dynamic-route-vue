@@ -7,17 +7,17 @@ const props = defineProps<{
     description:string,
     image:string
 }>()
-console.log()
+
 </script>
 
 <template>
   <div class=" overflow-hidden rounded-xl bg-white shadow-lg">
     <!-- Image -->
     <RouterLink :to="'/product/' + props.id">
-            <img
-      :src="props.image"
-      alt="Iphone"
-      class="h-48 w-full object-cover"
+      <img
+        :src="props.image"
+        alt="Iphone"
+        class="h-48 w-full object-cover"
     />
 
     </RouterLink>
