@@ -1,34 +1,16 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import ProductCard from "../components/ProductCard.vue";
-import { ref } from "vue";
-import { useCounterStore } from "../pinia/counter.ts";
+import { useCounterStore } from "../stores/counter.ts";
+import { useProductStore } from "../stores/productApi.ts";
 
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-};
+const { count } = useCounterStore();
 
-const productRef = ref<Product[]>([]);
+const productStore = useProductStore()
+onMounted(() => {
+  productStore.getAllProducts()
+});
 
-async function getAllProducts() {
-  try{
-    const res = await fetch("http://localhost:3000/products");
-    const data = await res.json();
-    productRef.value = data;
-  }catch(error){
-    console.log(error);
-  }
-}
-
-onMounted(()=>{
-  getAllProducts();
-})
-//
-const {count} = useCounterStore()
 
 </script>
 
@@ -39,7 +21,7 @@ const {count} = useCounterStore()
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center"
   >
     <ProductCard
-      v-for="e in productRef"
+      v-for="e in productStore.productList"
       :key="e.id"
       :id="e.id"
       :name="e.name"

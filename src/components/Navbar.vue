@@ -1,30 +1,21 @@
 <script setup lang="ts">
-import { useCounterStore } from '../pinia/counter';
+import { useCounterStore } from "../stores/counter";
 
-const counter = useCounterStore()
+const counter = useCounterStore();
 </script>
 
 <template>
+  <nav class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <h1 class="text-xl font-bold text-blue-600">MyApp {{ counter.count }}</h1>
 
-    <nav class="bg-white border-b">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
-    <!-- Logo -->
-    <h1 class="text-xl font-bold text-blue-600">
-      MyApp {{ counter.count }}
-    </h1>
-
-    <!-- Menu -->
-    <div class="flex gap-6">
-      
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/product">Product</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-
+      <!-- Menu -->
+      <div class="flex gap-6">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/product">Product</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </div>
     </div>
-
-  </div>
-</nav>
-
-
+  </nav>
 </template>

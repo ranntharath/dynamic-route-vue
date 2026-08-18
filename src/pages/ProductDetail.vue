@@ -2,47 +2,27 @@
 import { useRoute } from "vue-router";
 
 import { onMounted, ref } from "vue";
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-};
+import { useProductStore } from "../stores/productApi";
+import type { Product } from "../types/product";
 
 
 const route = useRoute();
 const productId = Number(route.params.id);
 
+
+const productStore = useProductStore()
+
 const product = ref<Product | null>(null);
-const isLoading = ref<boolean>(false);
 
-async function getProductById() {
-  isLoading.value = true;
-  try {
-    const res = await fetch(`http://localhost:3000/products/${productId}`);
-    const data = await res.json();
-    if(data?.error){
-      product.value = null;
-      return;
-    }
-    product.value = data;
-  } catch (error) {
-    console.log(error);
-    
-  } finally {
-    isLoading.value = false;
-  }
-}
-
-onMounted(() => {
-  getProductById();
+onMounted(async () => {
+  product.value = await  productStore.getProductById(productId)
 });
+
 </script>
 
 <template>
 
-  <div v-if="isLoading">
+  <div v-if="productStore.isloading">
     <h1 class="text-3xl text-center">Loading...</h1>
   </div>
 
